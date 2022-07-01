@@ -16,8 +16,6 @@ exports.addressToScript = function(addr, network) {
   if (network.coin === 'bch' && bchaddr.isCashAddress(addr)) {
     addr = bchaddr.toLegacyAddress(addr);
     return bitcoin.address.toOutputScript(addr, network);
-  } else if (typeof network.coin !== 'undefined') {
-    return bitcoin.address.toOutputScript(addr, network);
   } else {
     return Buffer.concat([Buffer.from([0x76, 0xa9, 0x14]), bitcoin.address.fromBase58Check(addr).hash, Buffer.from([0x88, 0xac])]);
   }
